@@ -47,7 +47,7 @@ pipeline {
 
         failure {
             echo "Failed"
-            mail to: 'abc@xyz.com', subject: 'the pipeline failed.', body: 'hello world'
+            // mail to: 'abc@xyz.com', subject: 'the pipeline failed.', body: 'hello world'
         }
 
         cleanup {

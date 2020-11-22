@@ -5,11 +5,12 @@ pipeline {
         maven 'mvn-3.6.0'
     }
 
+    // Valid option types: [authorizationMatrix, buildDiscarder, catchError, checkoutToSubdirectory, disableConcurrentBuilds, disableResume, durabilityHint, lock, overrideIndexTriggers, parallelsAlwaysFailFast, preserveStashes, quietPeriod, rateLimitBuilds, retry, script, skipDefaultCheckout, skipStagesAfterUnstable, timeout, timestamps, waitUntil, warnError, withContext, withCredentials, withEnv, wrap, ws]
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
-        checkoutToSubdiretory('subDir')
+        // checkoutToSubdiretory('subDir')
         disableConcurrentBuilds()
-        newContainerPerStage()
+        // newContainerPerStage()
         retry(4)
         timeout(time: 60, unit: 'SECONDS')
     }

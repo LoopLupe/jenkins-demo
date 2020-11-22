@@ -11,7 +11,7 @@ pipeline {
         // checkoutToSubdiretory('subDir')
         disableConcurrentBuilds()
         // newContainerPerStage()
-        retry(4)
+        retry(2)
         timeout(time: 60, unit: 'SECONDS')
     }
 
@@ -23,6 +23,11 @@ pipeline {
                     for (int i =0; i < browsers.size(); ++i) {
                         echo "testing the ${browsers[i]} browser"
                     }
+
+                    pwd()
+                    writeFile(file: "base64File", text: "amVua2lucyBib29r", encoding: "Base64")
+                    def content = readFile(file: "base64File", encoding: "UTF-8")
+                    echo "${content}"
                 }
                 sh 'mvn -v'
                 // sh "mvn clean package spring-boot:repackage"

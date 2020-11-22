@@ -20,16 +20,19 @@ pipeline {
             agent {label "master"}
             steps {
                 writeFile file: "a.txt", text: "${BUILD_NUMBER}"
-                stash(name = "abc", includes: "a.txt")
+                stash(name: "abc", includes: "a.txt")
             }
         }
 
         stage('unstash') {
             agent {label "master"}
             steps {
-                unstash("abc")
-                def content = readFile(file: "a.txt", encoding: "UTF-8")
-                echo "${content}"
+                script {
+                    unstash("abc")
+                    def content = readFile(file: "a.txt", encoding: "UTF-8")
+                    echo "${content}"
+                }
+
             }
         }
 

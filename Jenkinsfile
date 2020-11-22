@@ -16,8 +16,21 @@ pipeline {
     }
     
     post {
+        changed {
+            echo "pipeline post changed"
+        }
+
+        always {
+            echo "pipeline post always"
+        }
+
+        success {
+            echo "pipeline post success"
+        }
+
         failure {
             echo "Failed"
+            mail to: 'abc@xyz.com', subject: 'the pipeline failed.'
         }
     }
 }

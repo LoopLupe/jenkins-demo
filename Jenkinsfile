@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     def browsers = ['chrome', 'firefox']
-                    for (int i =0; i < browsers.size(), ++i) {
+                    for (int i =0; i < browsers.size(); ++i) {
                         echo "testing the ${broswers[i]} browser"
                     }
                 }

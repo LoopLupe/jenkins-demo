@@ -34,3 +34,5 @@ build/
 
 ### MacOS file ###
 **/.DS_Store
+
+debug.log

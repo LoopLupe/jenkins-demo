@@ -24,11 +24,31 @@ pipeline {
                         echo "testing the ${browsers[i]} browser"
                     }
 
-                    pwd()
+                    def pwd = pwd()
+                    echo "${pwd}"
+
                     writeFile(file: "base64File", text: "amVua2lucyBib29r", encoding: "Base64")
                     def content = readFile(file: "base64File", encoding: "UTF-8")
                     echo "${content}"
                 }
+
+                stage('stash') {
+                    agent {label "master"}
+                    steps {
+                        writeFile file: "a.txt", text: "${BUILD_NUMBER}"
+                        stash(name = "abc", includes: "a.txt")
+                    }
+                }
+
+                stage('unstash') {
+                    agent {label "master"}
+                    steps {
+                        unstash("abc")
+                        def content = readFile(file: "a.txt", encoding: "UTF-8")
+                        echo "${content}"
+                    }
+                }
+
                 sh 'mvn -v'
                 // sh "mvn clean package spring-boot:repackage"
                 sh "printenv"

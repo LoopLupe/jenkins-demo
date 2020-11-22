@@ -5,10 +5,26 @@ pipeline {
         maven 'mvn-3.6.0'
     }
 
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        checkoutToSubdiretory('subDir')
+        disableConcurrentBuilds()
+        newContainerPerStage()
+        retry(4)
+        timeout(time: 60, unit: 'SECONDS')
+    }
+
     stages {
         stage('Build') {
             steps {
-                sh "mvn clean package spring-boot:repackage"
+                script {
+                    def browsers = ['chrome', 'firefox']
+                    for (int i =0; i < browsers.size(), ++i) {
+                        echo "testing the ${broswers[i]} browser"
+                    }
+                }
+                sh 'mvn -v'
+                // sh "mvn clean package spring-boot:repackage"
                 sh "printenv"
                 echo 'Hello World'
             }
